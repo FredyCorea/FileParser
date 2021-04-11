@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5vwctEd/PgE71yilCICLbApUKpsksco/X/cz4pStwZo7HkCekqE8dhvQELKCZpBNquUmrvFT6MX4+tmLMF7Xgg==",
+  "dgSpecHash": "9FyldOn+r5vni7OPcuKIr1aDeudkrPbwB/P+yUDNE4pU/V0Ay0edo4yaIHkWF4Zi++7wtW4wgYZEms6zBgbJIg==",
   "success": true,
-  "projectFilePath": "C:\\A1\\JobTestStringParser\\JobTestStringParser.csproj",
+  "projectFilePath": "C:\\A1\\FileParser\\JobTestStringParser\\JobTestStringParser.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

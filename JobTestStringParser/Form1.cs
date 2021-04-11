@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace JobTestStringParser
 {
      public partial class Form1 : Form
@@ -18,86 +19,70 @@ namespace JobTestStringParser
                InitializeComponent();
           }
 
-          public string fileContent = string.Empty;
+          List<Person> personList = new List<Person>();
+          //string gender = "Female";
+          //string strText = "";
 
           private void buttonParse_Click(object sender, EventArgs e)
           {
+               //List<Person> personList = new List<Person>();
 
-               Person person = new Person();
-               List<Person> personList = new List<Person>();
-               string fieldNme;
-               string content;
-               string contentClean;
-               string flagValue;
-               string fieldNmeRaw;
-               int flagValueStart;
-               int flagValueEnd;
+               Process.start(ref personList);
 
-               string path = @"c:\A1\people.txt";
+               bindingSource1.DataSource = personList;
+               dataGridView1.DataSource = bindingSource1;
+               dataGridView1.Refresh();
 
-               FillObject fo = new FillObject();
-
-               dataGridView1.DataSource = personList;
-
-               StreamReader reader = File.OpenText(path);
-
-               string line;
-               while ((line = reader.ReadLine()) != null)
-               {
-
-                    string[] items = line.Split('\t');
-                    //int myInteger = int.Parse(items[1]);   // Here's your integer.
-
-                    // Now let's find the path.
-                    //string path = null;
-                    foreach (string item in items)
-                    {
-                         int start = item.IndexOf("(") + 1;
-                         int end = item.IndexOf(")", start);
-
-                         fieldNme = item.Substring(start, end - start);
-
-                         fieldNmeRaw = "(" + fieldNme + ")";
-
-                         //content = line.Remove(fieldNme);
-                         content = item.ToString();
-                         contentClean = content.Replace(fieldNmeRaw, "");
-
-                         if (fieldNme == "Flags")
-                         {
-                              for (int i = 0; i < 2; i++)
-                              {
-                                   flagValueStart = i;
-                                   flagValueEnd = i + 1;
-
-                                   flagValue = contentClean.Substring(0, 1);
-                                   if (flagValueStart == 0)
-                                   {
-                                        fo.DataFiller(person, "Female", contentClean, ref personList);
-                                   }
-                                   else if (flagValueStart == 1)
-                                   {
-                                        fo.DataFiller(person, "Student", contentClean, ref personList);
-                                   }
-                                   else
-                                   {
-                                        fo.DataFiller(person, "Employee", contentClean, ref personList);
-                                   }
-                              }
-
-                         }
-                         else
-                         {
-                              fo.DataFiller(person, fieldNme, contentClean, ref personList);
-                         }
-                         string a = "temp";
-                    }
-
-
-               }
+               buttonExtract.Enabled = true;
           }
 
+
+
+          private void buttonExtract_Click(object sender, EventArgs e)
+          {
+               ////Exptect format
+               ////John Doe[20, Male]
+               ////        City: Ashtabula
+               ////        State : OH
+               ////        Student : Yes
+               ////        Employee : No
+
+               ////
+               //richTextBox1.Text = "";
+
+               ////Iterate the list to extract and format information
+               //foreach (var item in personList)
+               //{
+               //     //These lines for illustration purpose, the Console will
+               //     //not appear in this windows form
+               //     //unless if I attache the executable
+               //     gender = item.Female == "Y" ? "Female" : "Male";
+               //     Console.WriteLine(item.Name + " [" + item.Age + "," + gender + "]" + "\n");
+               //     Console.WriteLine("City: ".PadLeft(15));
+               //     strText = strText + "\n";
+               //     strText = strText + (item.Name + " [" + item.Age + "," + gender + "]" + "\n");
+               //     strText = strText + "          City    : ";
+               //     strText = strText + " " + item.City + "\n";
+               //     strText = strText + "          State   : ";
+               //     if (item.State != null)
+               //     {
+               //          strText = strText + " " + (item.State).Trim() + "\n";
+               //     }
+               //     else
+               //     {
+               //          item.State = "N/A";
+               //          strText = strText + " " + (item.State).Trim() + "\n";
+               //          //strText = strText + " " + "          ";
+               //     }
+               //     strText = strText + "          Employee: ";
+               //     strText = strText + " " + (item.Student).Trim() + "\n";
+               //     strText = strText + "          Student : ";
+               //     strText = strText + " " + item.Student + "\n";
+               //}
+
+               //strText = ExtractData.GetList(personList);
+               //richTextBox1.Text = strText;
+               richTextBox1.Text = ExtractData.GetList(personList);
+          }
      }
-
-
 }
